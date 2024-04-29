@@ -4,7 +4,7 @@ import NoteList from "./NoteList";
 import AddNoteButtom from "./AddNoteButtom";
 
 interface NoteProps {
-    id: number
+    id: string
     date: string
     title: string;
     content: string;
@@ -28,7 +28,7 @@ interface NoteProps {
 const App: React.FC = () => {
 	const [notes, setNotes] = useState<NoteProps[]>([]);
   
-	const addNote = (id:number, title: string, content: string, date:string) => {
+	const addNote = (id:string, title: string, content: string, date:string) => {
 	  setNotes([...notes, { id, title, content, date }]);
 	};
 	
