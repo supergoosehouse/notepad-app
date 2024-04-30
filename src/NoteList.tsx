@@ -12,10 +12,10 @@ interface Note {
 
 interface NoteListProps {
   notes: Note[];
-  button?: (id: string, title: string, content: string, date: string, prop: string) => void;
+  onAddNote: (id: string, title: string, content: string, date: string, prop: string) => void;
 }
 
-const NoteList: React.FC<NoteListProps> = ({ notes, button }) => {
+const NoteList: React.FC<NoteListProps> = ({ notes, onAddNote }) => {
   return (
     <div className="note-list">
       {notes.map((note, index) =>
@@ -31,7 +31,7 @@ const NoteList: React.FC<NoteListProps> = ({ notes, button }) => {
         ) : (
           <AddNoteButtom
             key={note.id}
-            onAddNote={() => button && button(note.id, "text", "", new Date().toLocaleDateString(), "note")}
+            onAddNote={onAddNote}
           />
         )
       )}

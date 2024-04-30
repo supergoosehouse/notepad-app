@@ -19,7 +19,7 @@ const App: React.FC = () => {
     
     return (
       <div className="app">
-        <NoteList notes={notes} button={addNote} />
+        <NoteList notes={notes} onAddNote={addNote} />
       </div>
     );
   };
