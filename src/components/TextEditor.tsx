@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import Toolbar from "./Toolbar";
+import { realtimeDB } from "../services/firebase";
 
 const TextEditor = () => {
 	const [text, setText] = useState("");

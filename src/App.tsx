@@ -10,8 +10,6 @@ function App() {
 		<>
 			<Header></Header>
 			<TextEditor></TextEditor>
-			<NoteGrid></NoteGrid>
-			<BurgerMenu></BurgerMenu>
 		</>
 	);
 }
