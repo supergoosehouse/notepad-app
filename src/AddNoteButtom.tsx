@@ -14,7 +14,7 @@ const AddNoteButton: React.FC<AddNoteButtonProps> = ({ onAddNote }) => {
 
     return (
         <button className="add-note-buttom" onClick={handleAddNote}>
-            {"Text"}
+            {"+"}
         </button>
     );
 };
