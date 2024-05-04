@@ -96,7 +96,6 @@ const TextEditor = () => {
 						border: "",
 						borderColor: "transparent",
 						fontSize: "18px",
-						//width: "600px",
 						minHeight: "150px",
 						marginBottom: "200px",
 					}}
