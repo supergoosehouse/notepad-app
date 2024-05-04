@@ -1,48 +1,52 @@
-.note {
-    background-color: #f5f5f5; /* Light gray background */
-    border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
-    padding: 20px;
-    margin-bottom: 20px;
-    width: 150px;
-    margin-right: 10px;
-   
+body {
+  background-color: #f5f5f5;
+}
+.note-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 10px;
+  margin: 10px 0 10px 15px;
 }
 
-.note-list {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    
-  }
+.note {
+  /*position*/
+  position: relative;
+  width: 24%;
+  padding: 20px;
+  height: 200px;
+  /*other stuffs*/
+  background-color: white; /* Light gray background */
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
 
-
-.add-note-buttom{
-    background-color: #f5f5f5; /* Light gray background */
-    border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
-    padding: 20px;
-    margin-bottom: 20px;
-    width: 150px;
-    margin-right: 10px;
-    order: 7;
-    border: none;
-    
+.add-note-button {
+  /*position*/
+  width: 24%;
+  padding: 20px;
+  height: 200px;
+  /*other stuffs*/
+  background-color: white; /* Light gray background */
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  order: 7;
+  border: none;
 }
 
 .note-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    width: 150px;
+  top: 10px; /* Adjust this value as needed to position the content */
+  left: 10px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .note-content {
-    font-size: 16px;
-    color: #333; /* Dark gray text color */
+  font-size: 16px;
+  color: #333; /* Dark gray text color */
 }
 
 .note-date {
-    font-size: 14px;
-    color: #999; /* Light gray text color */
+  font-size: 14px;
+  color: #999; /* Light gray text color */
 }
