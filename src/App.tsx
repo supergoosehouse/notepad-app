@@ -1,17 +1,14 @@
-import { useState } from "react";
-import NoteGrid from "./components/NoteGrid";
 import "./App.css";
-import TextEditor from "./components/TextEditor";
+import NoteList from "./components/NoteList";
 import Header from "./components/Header";
-import BurgerMenu from "./components/BurgerMenu";
 
-function App() {
-	return (
-		<>
-			<Header></Header>
-			<TextEditor></TextEditor>
-		</>
-	);
-}
+const App: React.FC = () => {
+  return (
+    <div className="app">
+      <Header />
+      <NoteList />
+    </div>
+  );
+};
 
 export default App;
