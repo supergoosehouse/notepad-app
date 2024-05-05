@@ -6,68 +6,69 @@ import { realtimeDB } from "../services/firebase";
 import { push } from "firebase/database";
 
 import {
-	DatabaseReference,
-	onValue,
-	ref,
-	DataSnapshot,
+  DatabaseReference,
+  onValue,
+  ref,
+  DataSnapshot,
 } from "firebase/database";
 
 const NoteList: React.FC = () => {
-	const [notes, setNotes] = useState<NoteProps[]>([
-		{ id: "null", date: "", title: "", content: "", prop: "button" },
-	]);
+  // Initalisation of the notes list with AddNoteButton
+  const [notes, setNotes] = useState<NoteProps[]>([
+    { id: "null", date: "", title: "", content: "", prop: "button" },
+  ]);
 
-	const addNote = (
-		id: string,
-		title: string,
-		content: string,
-		date: string,
-		prop: string
-	) => {
-		push(userNotesRef, { id, title, content, date });
-	};
-	const userNotesRef: DatabaseReference = ref(realtimeDB, "User/Notes");
+  // Note in the database has the following attributes: title, content, date.
+  // Meanwhile, the Note component has the following attributes:
+  // title, content, date, props, and id.
+  // The id is used for deleting elements from the database and is equal to the key of the note in the database.
+  // Props include functions for setting up the app's "add note" button.
+  const addNote = (title: string, content: string, date: string) => {
+    push(userNotesRef, { title, content, date });
+  };
 
-	useEffect(() => {
-		const onDataChange = (snapshot: DataSnapshot) => {
-			const data: any[] = Object.entries(snapshot.val() || []);
-			const updatedNotes = data.map(([key, element]) => ({
-				id: key,
-				title: element.title,
-				content: element.content || "", // Assuming noteText corresponds to content
-				date: element.date || "",
-				prop: "note",
-			}));
-			updatedNotes.reverse();
-			setNotes([...notes, ...updatedNotes]);
-		};
+  const userNotesRef: DatabaseReference = ref(realtimeDB, "User/Notes");
 
-		onValue(userNotesRef, onDataChange);
+  useEffect(() => {
+    const onDataChange = (snapshot: DataSnapshot) => {
+      const data: any[] = Object.entries(snapshot.val() || []);
+      const updatedNotes = data.map(([key, element]) => ({
+        id: key, // This is local, in data base id is different
+        title: element.title,
+        content: element.content || "", // Assuming noteText corresponds to content
+        date: element.date || "",
+        prop: "note",
+      }));
+      updatedNotes.reverse();
+      setNotes([...notes, ...updatedNotes]);
+    };
 
-		return () => {
-			// Cleanup function to detach the listener when component unmounts
-			onValue(userNotesRef, onDataChange);
-		};
-	}, []); // Empty dependency array to ensure the effect runs only once
+    onValue(userNotesRef, onDataChange);
 
-	return (
-		<div className="note-list">
-			{notes.map((note, index) =>
-				note.prop === "note" ? (
-					<Note
-						key={note.id}
-						title={note.title}
-						content={note.content}
-						id={note.id}
-						date={note.date}
-						prop={note.prop}
-					/>
-				) : (
-					<AddNoteButtom key={note.id} onAddNote={addNote} />
-				)
-			)}
-		</div>
-	);
+    return () => {
+      // Cleanup function to detach the listener when component unmounts
+      onValue(userNotesRef, onDataChange);
+    };
+  }, []); // Empty dependency array to ensure the effect runs only once
+
+  return (
+    <div className="note-list">
+      {notes.map((note) =>
+        note.prop === "note" ? (
+          <Note
+            key={note.id}
+            title={note.title}
+            content={note.content}
+            id={note.id}
+            date={note.date}
+            prop={note.prop}
+          />
+        ) : (
+          <AddNoteButtom key={note.id + "key"} onAddNote={addNote} />
+        )
+      )}
+    </div>
+  );
 };
 
 export default NoteList;
