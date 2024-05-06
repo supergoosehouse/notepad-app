@@ -4,6 +4,7 @@ import Note from "./Note";
 import { NoteProps } from "./Note";
 import { realtimeDB } from "../services/firebase";
 import { push } from "firebase/database";
+import { getAuth } from "firebase/auth";
 
 import {
   DatabaseReference,
@@ -26,21 +27,25 @@ const NoteList: React.FC = () => {
   const addNote = (title: string, content: string, date: string) => {
     push(userNotesRef, { title, content, date });
   };
+  const auth = getAuth();
+  const uid = auth.currentUser.uid;
 
-  const userNotesRef: DatabaseReference = ref(realtimeDB, "User/Notes");
+  const userNotesRef: DatabaseReference = ref(realtimeDB, `User/${uid}`);
 
   useEffect(() => {
     const onDataChange = (snapshot: DataSnapshot) => {
       const data: any[] = Object.entries(snapshot.val() || []);
+
       const updatedNotes = data.map(([key, element]) => ({
-        id: key, // This is local, in data base id is different
+        id: key, // This id is for the local list
         title: element.title,
-        content: element.content || "", // Assuming noteText corresponds to content
+        content: element.content || "",
         date: element.date || "",
         prop: "note",
       }));
       updatedNotes.reverse();
-      setNotes([...notes, ...updatedNotes]);
+
+      setNotes([notes[0], ...updatedNotes]);
     };
 
     onValue(userNotesRef, onDataChange);
@@ -64,7 +69,7 @@ const NoteList: React.FC = () => {
             prop={note.prop}
           />
         ) : (
-          <AddNoteButtom key={note.id + "key"} onAddNote={addNote} />
+          <AddNoteButtom key={note.id} onAddNote={addNote} />
         )
       )}
     </div>
