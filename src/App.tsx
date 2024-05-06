@@ -21,14 +21,15 @@ const App: React.FC = () => {
 							overflowY: "auto",
 							height: "calc(100vh - 50px)",
 						}}
-					></div>
-					<section>
-						<Routes>
-							<Route path="/signup" element={<Signup />} />
-							<Route path="/login" element={<Login />} />
-							<Route path="/home" element={<Home />} />
-						</Routes>
-					</section>
+					>
+						<section>
+							<Routes>
+								<Route path="/signup" element={<Signup />} />
+								<Route path="/login" element={<Login />} />
+								<Route path="/home" element={<Home />} />
+							</Routes>
+						</section>
+					</div>
 				</div>
 			</div>
 		</Router>
