@@ -6,3 +6,15 @@
 body {
 	font-family: "Roboto Mono", monospace;
 }
+
+body,
+html {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.editor-placeholder[contentEditable="true"]:empty:before {
+	color: #ccc;
+	content: attr(data-text);
+}
