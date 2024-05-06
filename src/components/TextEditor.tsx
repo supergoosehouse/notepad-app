@@ -24,98 +24,65 @@ const TextEditor = () => {
 		}
 	};
 
-	const isTextEmpty = () => {
-		return text === "" && "Type your note here";
-	};
-
-	const isTitleEmpty = () => {
-		return title === "" && "Note";
-	};
-
 	return (
 		<>
 			<div
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "center",
-					width: "600px",
-					marginLeft: "auto",
-					marginRight: "auto",
-				}}
+				id="text-editor-container"
+				style={{ height: "calc(100vh - 50px)", overflowY: "auto" }}
 			>
 				<div
-					data-text="Note"
-					className="form-control"
-					contentEditable="true"
-					onInput={handleTitleChange}
-					onKeyDown={handleKeyOnTitle}
 					style={{
-						boxShadow: "none",
-						border: "",
-						borderColor: "transparent",
-						fontSize: "24px",
-						marginBottom: "0px",
-					}}
-				></div>
-				<p
-					style={{
-						padding: ".375rem .75rem",
-						position: "absolute",
-						color: "#ccc",
-						pointerEvents: "none",
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						marginTop: "20px",
 						width: "600px",
-						fontSize: "24px",
 						marginLeft: "auto",
 						marginRight: "auto",
-						textAlign: "left",
-						visibility: title === "" ? "visible" : "hidden",
 					}}
 				>
-					{isTitleEmpty()}
-				</p>
-			</div>
-			<div
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "center",
-					width: "600px",
-					marginLeft: "auto",
-					marginRight: "auto",
-				}}
-			>
+					<div
+						data-text="Note"
+						className="form-control editor-placeholder"
+						contentEditable="true"
+						onInput={handleTitleChange}
+						onKeyDown={handleKeyOnTitle}
+						style={{
+							boxShadow: "none",
+							border: "",
+							borderColor: "transparent",
+							fontSize: "24px",
+							marginBottom: "0px",
+						}}
+					></div>
+				</div>
 				<div
-					data-text="Enter text here"
-					className="form-control"
-					contentEditable="true"
-					ref={textEditorRef}
-					onInput={handleChange}
 					style={{
-						boxShadow: "none",
-						border: "",
-						borderColor: "transparent",
-						fontSize: "18px",
-						minHeight: "150px",
-						marginBottom: "200px",
-					}}
-				></div>
-				<p
-					style={{
-						padding: ".375rem .75rem",
-						position: "absolute",
-						color: "#ccc",
-						pointerEvents: "none",
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
 						width: "600px",
-						fontSize: "18px",
 						marginLeft: "auto",
 						marginRight: "auto",
-						textAlign: "left",
-						visibility: text === "" ? "visible" : "hidden",
 					}}
 				>
-					{isTextEmpty()}
-				</p>
+					<div
+						data-text="Type your note here"
+						className="form-control editor-placeholder"
+						contentEditable="true"
+						ref={textEditorRef}
+						onInput={handleChange}
+						style={{
+							boxShadow: "none",
+							border: "",
+							borderColor: "transparent",
+							fontSize: "18px",
+							minHeight: "150px",
+							marginBottom: "200px",
+						}}
+					></div>
+				</div>
+				<Toolbar />
 			</div>
 		</>
 	);
