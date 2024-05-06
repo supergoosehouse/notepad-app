@@ -4,12 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "jquery";
 import "popper.js";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-
 import App from "./App.tsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
