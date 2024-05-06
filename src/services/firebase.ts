@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-import { getAuth } from "firebase/auth";
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyCAe7R1BN23ZeKoT--Jmu6Pv7Zi0-1vhBQ",
   authDomain: "goose-notepad-app7fd6g8.firebaseapp.com",
