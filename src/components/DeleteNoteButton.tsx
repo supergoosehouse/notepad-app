@@ -1,6 +1,7 @@
 import React from "react";
-import { remove, ref } from "firebase/database";
+import { remove, ref, DatabaseReference } from "firebase/database";
 import { realtimeDB } from "../services/firebase";
+import { getAuth } from "firebase/auth";
 
 interface DeleteNoteButtonProps {
   id: string;
@@ -8,7 +9,9 @@ interface DeleteNoteButtonProps {
 
 const DeleteNoteButton: React.FC<DeleteNoteButtonProps> = ({ id }) => {
   const handleDeleteNote = () => {
-    const elementRef = ref(realtimeDB, `User/Notes/${id}`);
+    const auth = getAuth();
+    const uid = auth.currentUser.uid;
+    const elementRef = ref(realtimeDB, `User/${uid}/${id}`);
 
     remove(elementRef)
       .then(() => {
