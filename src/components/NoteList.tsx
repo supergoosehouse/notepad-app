@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AddNoteButtom from "./AddNoteButton";
+import AddNoteButton from "./AddNoteButton";
 import Note from "./Note";
 import { NoteProps } from "./Note";
 import { realtimeDB } from "../services/firebase";
@@ -28,7 +28,7 @@ const NoteList: React.FC = () => {
 		push(userNotesRef, { title, content, date });
 	};
 	const auth = getAuth();
-	const uid = auth.currentUser.uid;
+	const uid = auth.currentUser?.uid;
 
 	const userNotesRef: DatabaseReference = ref(realtimeDB, `User/${uid}`);
 
@@ -57,7 +57,12 @@ const NoteList: React.FC = () => {
 	}, []); // Empty dependency array to ensure the effect runs only once
 
 	return (
-		<div className="note-list">
+		<div
+			className="note-list"
+			style={{
+				overflowX: "hidden",
+			}}
+		>
 			{notes.map((note) =>
 				note.prop === "note" ? (
 					<Note
@@ -69,7 +74,7 @@ const NoteList: React.FC = () => {
 						prop={note.prop}
 					/>
 				) : (
-					<AddNoteButtom key={note.id} onAddNote={addNote} />
+					<AddNoteButton key={note.id} onAddNote={addNote} />
 				)
 			)}
 		</div>

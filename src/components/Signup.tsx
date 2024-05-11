@@ -5,79 +5,79 @@ import { auth, realtimeDB } from "../services/firebase.ts";
 import { getDatabase, ref, set } from "firebase/database";
 
 const Signup = () => {
-  //Example: navigate('/products') would navigate to the route at the path /products.
-  const navigate = useNavigate();
+	//Example: navigate('/products') would navigate to the route at the path /products.
+	const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 
-  // Asynchronous functions can perform operations that take time
-  // to complete (like fetching  data from a server) without blocking
-  // the execution of other parts of your code.
-  // e - event object
-  const onSubmit = async (e) => {
-    // The default behavior of a form submission is to reload the entire page.
-    // By calling preventDefault, you prevent this default behavior from happening
-    e.preventDefault();
+	// Asynchronous functions can perform operations that take time
+	// to complete (like fetching  data from a server) without blocking
+	// the execution of other parts of your code.
+	// e - event object
+	const onSubmit = async (e: any) => {
+		// The default behavior of a form submission is to reload the entire page.
+		// By calling preventDefault, you prevent this default behavior from happening
+		e.preventDefault();
 
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        const dbRef = ref(realtimeDB, `User/${user.uid}`);
-        await set(dbRef, true);
-        console.log(user);
-        navigate("/login");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-  };
+		await createUserWithEmailAndPassword(auth, email, password)
+			.then(async (userCredential) => {
+				// Signed in
+				const user = userCredential.user;
+				const dbRef = ref(realtimeDB, `User/${user.uid}`);
+				await set(dbRef, true);
+				console.log(user);
+				navigate("/login");
+			})
+			.catch((error) => {
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				console.log(errorCode, errorMessage);
+			});
+	};
 
-  return (
-    <main>
-      <section>
-        <div>
-          <div>
-            <h1> FocusApp </h1>
-            <form>
-              <div>
-                <label htmlFor="email-address">Email address</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  placeholder="Email address"
-                />
-              </div>
+	return (
+		<main>
+			<section>
+				<div>
+					<div>
+						<h1> FocusApp </h1>
+						<form>
+							<div>
+								<label htmlFor="email-address">Email address</label>
+								<input
+									type="email"
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+									required
+									placeholder="Email address"
+								/>
+							</div>
 
-              <div>
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  placeholder="Password"
-                />
-              </div>
+							<div>
+								<label htmlFor="password">Password</label>
+								<input
+									type="password"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+									required
+									placeholder="Password"
+								/>
+							</div>
 
-              <button type="submit" onClick={onSubmit}>
-                Sign up
-              </button>
-            </form>
+							<button type="submit" onClick={onSubmit}>
+								Sign up
+							</button>
+						</form>
 
-            <p>
-              Already have an account? <NavLink to="/login">Sign in</NavLink>
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
+						<p>
+							Already have an account? <NavLink to="/login">Sign in</NavLink>
+						</p>
+					</div>
+				</div>
+			</section>
+		</main>
+	);
 };
 
 export default Signup;
