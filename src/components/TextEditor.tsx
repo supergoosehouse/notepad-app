@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useState, useRef, useEffect } from "react";
+import React, {
+	ChangeEvent,
+	useState,
+	useRef,
+	useEffect,
+	useLayoutEffect,
+} from "react";
 import Toolbar from "./Toolbar";
 import { realtimeDB } from "../services/firebase";
 import { useNavigate, useParams } from "react-router-dom";
@@ -11,8 +17,8 @@ const TextEditor = () => {
 	const [text, setText] = useState("");
 	const [title, setTitle] = useState("");
 
-	const textEditorRef = useRef<HTMLDivElement | null>(null);
-	const titleEditorRef = useRef<HTMLDivElement | null>(null);
+	const textEditorRef = useRef<HTMLTextAreaElement | null>(null);
+	const titleEditorRef = useRef<HTMLTextAreaElement | null>(null);
 
 	const currentUser: User | null = getAuth().currentUser;
 	const userNoteRef: DatabaseReference = ref(
@@ -23,6 +29,10 @@ const TextEditor = () => {
 		realtimeDB,
 		`User/${currentUser?.uid}/${noteId}/content`
 	);
+	const titleRef: DatabaseReference = ref(
+		realtimeDB,
+		`User/${currentUser?.uid}/${noteId}/title`
+	);
 
 	const navigate = useNavigate();
 
@@ -30,12 +40,11 @@ const TextEditor = () => {
 		const onDataChange = (snapshot: DataSnapshot) => {
 			const data = snapshot.val();
 			if (data) {
-				if (data.content && data.content !== text) {
-					setText(data.content);
-				}
-				if (data.title && data.title !== title) {
-					setTitle(data.title);
-				}
+				//if (data.content && data.content !== text) {
+				//if (data.content !== text) {
+				setText(data.content);
+				//}
+				setTitle(data.title);
 			}
 		};
 
@@ -47,16 +56,16 @@ const TextEditor = () => {
 	}, []);
 
 	//old caret effect
-	useEffect(() => {
-		if (textEditorRef.current) {
-			const selection = window.getSelection();
-			const range = document.createRange();
-			range.selectNodeContents(textEditorRef.current);
-			range.collapse(false); // Set caret to end of content
-			selection?.removeAllRanges();
-			selection?.addRange(range);
-		}
-	}, [text]);
+	// useEffect(() => {
+	// 	if (textEditorRef.current) {
+	// 		const selection = window.getSelection();
+	// 		const range = document.createRange();
+	// 		range.selectNodeContents(textEditorRef.current);
+	// 		range.collapse(false); // Set caret to end of content
+	// 		selection?.removeAllRanges();
+	// 		selection?.addRange(range);
+	// 	}
+	// }, [text]);
 
 	// useEffect(() => {
 	// 	if (titleEditorRef.current) {
@@ -69,20 +78,40 @@ const TextEditor = () => {
 	// 	}
 	// }, [title]);
 
-	const formattedContent: string[] = text.split(/\n/);
+	const adjustTextEditorHeight = () => {
+		if (textEditorRef.current) {
+			textEditorRef.current.style.height = "inherit";
+			textEditorRef.current.style.height = `${textEditorRef.current.scrollHeight}px`;
+		}
+	};
+	const adjustTitleHeight = () => {
+		if (titleEditorRef.current) {
+			titleEditorRef.current.style.height = "inherit";
+			titleEditorRef.current.style.height = `${titleEditorRef.current.scrollHeight}px`;
+		}
+	};
 
-	const handleTextChange = (event: ChangeEvent<HTMLDivElement>) => {
-		let eventHTML = event.target.innerHTML;
+	useLayoutEffect(adjustTextEditorHeight, []);
+
+	const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+		let eventHTML = event.target.value;
 		set(contentRef, eventHTML);
+		adjustTextEditorHeight();
 	};
 
-	const handleTitleChange = (event: ChangeEvent<HTMLDivElement>) => {
-		setTitle(event.target.textContent || "");
+	const handleTitleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+		set(titleRef, event.target.value);
+		adjustTitleHeight();
+		//setTitle(event.target.value || "");
 	};
-	const handleKeyOnTitle = (event: React.KeyboardEvent<HTMLDivElement>) => {
-		if (event.key === "Enter") {
+	const handleKeyOnTitle = (
+		event: React.KeyboardEvent<HTMLTextAreaElement>
+	) => {
+		console.log(event.key);
+		if (event.key === "Enter" || event.key === "ArrowDown") {
 			event.preventDefault();
 			if (textEditorRef.current) {
+				textEditorRef.current.selectionEnd = 0;
 				textEditorRef.current.focus();
 			}
 		}
@@ -125,13 +154,12 @@ const TextEditor = () => {
 						marginRight: "auto",
 					}}
 				>
-					<div
-						data-text="Note"
+					<textarea
+						placeholder="Note"
 						className="form-control editor-placeholder"
-						contentEditable="true"
-						onInput={handleTitleChange}
+						// onChange={handleTitleChange}
 						ref={titleEditorRef}
-						dangerouslySetInnerHTML={{ __html: title }}
+						value={title}
 						onKeyDown={handleKeyOnTitle}
 						style={{
 							boxShadow: "none",
@@ -139,8 +167,10 @@ const TextEditor = () => {
 							borderColor: "transparent",
 							fontSize: "24px",
 							marginBottom: "0px",
+							resize: "none",
+							overflowY: "hidden",
 						}}
-					></div>
+					></textarea>
 				</div>
 				<div
 					style={{
@@ -152,13 +182,13 @@ const TextEditor = () => {
 						marginRight: "auto",
 					}}
 				>
-					<div
+					<textarea
 						data-text="Type your note here"
 						className="form-control editor-placeholder"
-						contentEditable="true"
 						ref={textEditorRef}
-						dangerouslySetInnerHTML={{ __html: text }}
-						onInputCapture={handleTextChange}
+						value={text}
+						placeholder="Type your note here"
+						onChange={handleTextChange}
 						style={{
 							boxShadow: "none",
 							border: "",
@@ -166,11 +196,12 @@ const TextEditor = () => {
 							fontSize: "18px",
 							minHeight: "150px",
 							marginBottom: "200px",
+							resize: "none",
+							overflowY: "hidden",
 						}}
-					></div>
+					></textarea>
 				</div>
 				<Toolbar />
-				<textarea name="textarea" id=""></textarea>
 			</div>
 		</>
 	);
