@@ -14,7 +14,7 @@ html {
 	padding: 0px;
 }
 
-.editor-placeholder:empty:before {
+.editor-placeholder::placeholder {
 	color: #ccc;
 	/* content: attr(data-text); */
 }

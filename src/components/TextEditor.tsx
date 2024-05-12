@@ -55,39 +55,21 @@ const TextEditor = () => {
 		};
 	}, []);
 
-	//old caret effect
-	// useEffect(() => {
-	// 	if (textEditorRef.current) {
-	// 		const selection = window.getSelection();
-	// 		const range = document.createRange();
-	// 		range.selectNodeContents(textEditorRef.current);
-	// 		range.collapse(false); // Set caret to end of content
-	// 		selection?.removeAllRanges();
-	// 		selection?.addRange(range);
-	// 	}
-	// }, [text]);
-
-	// useEffect(() => {
-	// 	if (titleEditorRef.current) {
-	// 		const selection = window.getSelection();
-	// 		const range = document.createRange();
-	// 		range.selectNodeContents(titleEditorRef.current);
-	// 		range.collapse(false); // Set caret to end of content
-	// 		selection?.removeAllRanges();
-	// 		selection?.addRange(range);
-	// 	}
-	// }, [title]);
-
 	const adjustTextEditorHeight = () => {
 		if (textEditorRef.current) {
 			textEditorRef.current.style.height = "inherit";
 			textEditorRef.current.style.height = `${textEditorRef.current.scrollHeight}px`;
 		}
 	};
+
 	const adjustTitleHeight = () => {
 		if (titleEditorRef.current) {
-			titleEditorRef.current.style.height = "inherit";
-			titleEditorRef.current.style.height = `${titleEditorRef.current.scrollHeight}px`;
+			titleEditorRef.current.style.height = "1px";
+			if (titleEditorRef.current.scrollHeight === 50) {
+				titleEditorRef.current.style.height = "1em";
+			} else {
+				titleEditorRef.current.style.height = `${titleEditorRef.current.scrollHeight}px`;
+			}
 		}
 	};
 
@@ -107,7 +89,6 @@ const TextEditor = () => {
 	const handleKeyOnTitle = (
 		event: React.KeyboardEvent<HTMLTextAreaElement>
 	) => {
-		console.log(event.key);
 		if (event.key === "Enter" || event.key === "ArrowDown") {
 			event.preventDefault();
 			if (textEditorRef.current) {
@@ -156,8 +137,9 @@ const TextEditor = () => {
 				>
 					<textarea
 						placeholder="Note"
+						id="titleEditor"
 						className="form-control editor-placeholder"
-						// onChange={handleTitleChange}
+						onChange={handleTitleChange}
 						ref={titleEditorRef}
 						value={title}
 						onKeyDown={handleKeyOnTitle}
@@ -168,7 +150,10 @@ const TextEditor = () => {
 							fontSize: "24px",
 							marginBottom: "0px",
 							resize: "none",
+							height: "1em",
 							overflowY: "hidden",
+							wordWrap: "break-word",
+							whiteSpace: "pre-wrap",
 						}}
 					></textarea>
 				</div>
