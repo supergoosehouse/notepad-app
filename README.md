@@ -2,6 +2,10 @@
 
 ![logo](src/assets/animated_logo.gif)
 
+## Preview
+
+![preview1](/preview/preview1.gif)
+
 ## Overview
 
 The Goose Notepad Application is a simple web-based tool that allows users to take notes online. It provides a clean and intuitive interface for users to create, edit, and delete notes conveniently from their web browser.
@@ -43,7 +47,3 @@ The Goose Notepad Application is a simple web-based tool that allows users to ta
 3. Click on the "New Note" button to create a new note.
 4. Start typing your note in the text area.
 5. To delete a note, click on the delete icon next to it.
-
-## Preview
-
-![preview1](/preview/preview1.gif)
