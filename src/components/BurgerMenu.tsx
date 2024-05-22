@@ -1,8 +1,24 @@
 import React from "react";
 import UserIcon from "../assets/UserIcon.png";
+import { signOut } from "firebase/auth";
+import { auth } from "../services/firebase";
+import { useNavigate } from "react-router-dom";
 
 //Todo: https://getbootstrap.com/docs/4.0/components/dropdowns/
 const BurgerMenu = () => {
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+		signOut(auth)
+			.then(() => {
+				// Sign-out successful.
+				navigate("/login");
+				console.log("Signed out successfully");
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 	return (
 		<>
 			<div
@@ -50,6 +66,9 @@ const BurgerMenu = () => {
 					<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 						<a className="dropdown-item" href="#">
 							Settings
+						</a>
+						<a className="dropdown-item" onClick={handleLogout} href="#">
+							Logout
 						</a>
 					</div>
 				</div>

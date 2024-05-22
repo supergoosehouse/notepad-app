@@ -1,5 +1,6 @@
 import React from "react";
 import BurgerMenu from "./BurgerMenu";
+import LogoButton from "./LogoButton";
 
 const Header = () => {
 	return (
@@ -19,6 +20,18 @@ const Header = () => {
 					justifyContent: "flex-end",
 				}}
 			>
+				<div
+					style={{
+						position: "absolute",
+						left: "5px",
+						top: "5px",
+						height: "40px",
+					}}
+				>
+					<LogoButton
+						stylesList={{ height: "40px", draggable: "false" }}
+					></LogoButton>
+				</div>
 				<BurgerMenu></BurgerMenu>
 			</div>
 		</>

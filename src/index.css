@@ -14,7 +14,7 @@ html {
 	padding: 0px;
 }
 
-.editor-placeholder[contentEditable="true"]:empty:before {
+.editor-placeholder::placeholder {
 	color: #ccc;
-	content: attr(data-text);
+	/* content: attr(data-text); */
 }
