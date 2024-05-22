@@ -8,6 +8,7 @@ The Goose Notepad Application is a simple web-based tool that allows users to ta
 
 ## Features
 
+- **Authorization:** Users can create profile to store and edit notes individually.
 - **Create Notes:** Users can create new notes with a click of a button.
 - **Edit Notes:** Notes can be easily edited inline, providing a seamless editing experience.
 - **Delete Notes:** Unwanted notes can be deleted effortlessly.
