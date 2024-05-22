@@ -1,6 +1,6 @@
 # Goose Notepad
 
-![logo](src\assets\animated_logo.gif "logo")
+![logo](src/assets/animated_logo.gif)
 
 ## Overview
 
