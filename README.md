@@ -1,30 +1,48 @@
-# React + TypeScript + Vite
+# Goose Notepad
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![logo](src\assets\animated_logo.gif "logo")
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Goose Notepad Application is a simple web-based tool that allows users to take notes online. It provides a clean and intuitive interface for users to create, edit, and delete notes conveniently from their web browser.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Create Notes:** Users can create new notes with a click of a button.
+- **Edit Notes:** Notes can be easily edited inline, providing a seamless editing experience.
+- **Delete Notes:** Unwanted notes can be deleted effortlessly.
+- **Save Notes:** Notes are automatically saved to ensure users don't lose their work.
+- **Responsive Design:** The application is designed to work seamlessly across different devices and screen sizes.
 
-- Configure the top-level `parserOptions` property like this:
+## Technologies Used
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- React
+- TypeScript
+- Vite
+- Firebase
+- HTML5
+- Bootstrap
+- CSS
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Installation
+
+1. Clone the repository:
+   ```shell
+   git clone https://github.com/supergoosehouse/notepad-app.git
+   ```
+2. Run:
+   ```shell
+   npm run dev
+   ```
+
+## Usage
+
+1. Open the application in your web browser.
+2. Sing Up
+3. Click on the "New Note" button to create a new note.
+4. Start typing your note in the text area.
+5. To delete a note, click on the delete icon next to it.
+
+## Preview
+
+![preview1](/preview/preview1.gif)

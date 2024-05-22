@@ -68,8 +68,8 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-	margin-top: 50px;
-	margin-bottom: 50px;
+	margin-top: 3px;
+	margin-bottom: 3px;
 	border-radius: 10px;
 }
 
