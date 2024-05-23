@@ -50,4 +50,4 @@ The Goose Notepad Application is a simple web-based tool that allows users to ta
 
 ## honk honk honk
 
-![preview1](/preview/preview1.gif)
+![preview3](/preview/preview3.gif)
