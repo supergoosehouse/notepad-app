@@ -4,7 +4,7 @@
 
 ## Preview
 
-![preview1](/preview/preview1.gif)
+![preview2](/preview/preview2.gif)
 
 ## Overview
 
@@ -47,3 +47,7 @@ The Goose Notepad Application is a simple web-based tool that allows users to ta
 3. Click on the "New Note" button to create a new note.
 4. Start typing your note in the text area.
 5. To delete a note, click on the delete icon next to it.
+
+## honk honk honk
+
+![preview1](/preview/preview1.gif)

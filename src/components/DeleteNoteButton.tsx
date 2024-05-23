@@ -8,7 +8,7 @@ interface DeleteNoteButtonProps {
 }
 
 const DeleteNoteButton: React.FC<DeleteNoteButtonProps> = ({ id }) => {
-	const handleDeleteNote = () => {
+	const handleDeleteNote = (event: React.MouseEvent<HTMLButtonElement>) => {
 		const auth = getAuth();
 		const uid = auth.currentUser?.uid;
 		const elementRef = ref(realtimeDB, `User/${uid}/${id}`);
@@ -22,6 +22,7 @@ const DeleteNoteButton: React.FC<DeleteNoteButtonProps> = ({ id }) => {
 				// Handle any errors during deletion
 				console.error("Error removing element:", error);
 			});
+		event.stopPropagation();
 	};
 	return (
 		<button

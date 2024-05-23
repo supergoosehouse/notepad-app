@@ -37,46 +37,64 @@ const Signup = () => {
 	};
 
 	return (
-		<main>
-			<section>
-				<div>
-					<div>
-						<h1> FocusApp </h1>
-						<form>
-							<div>
-								<label htmlFor="email-address">Email address</label>
-								<input
-									type="email"
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									required
-									placeholder="Email address"
-								/>
-							</div>
-
-							<div>
-								<label htmlFor="password">Password</label>
-								<input
-									type="password"
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									required
-									placeholder="Password"
-								/>
-							</div>
-
-							<button type="submit" onClick={onSubmit}>
-								Sign up
-							</button>
-						</form>
-
-						<p>
-							Already have an account? <NavLink to="/login">Sign in</NavLink>
-						</p>
+		<>
+			<div
+				style={{
+					height: "calc(100vh - 50px)",
+					width: "100%",
+					alignContent: "center",
+					position: "absolute",
+				}}
+			>
+				<form
+					style={{
+						width: "400px",
+						margin: "0 auto",
+						display: "flex",
+						flexDirection: "column",
+					}}
+				>
+					<div style={{ display: "flex", marginBottom: "10px" }}>
+						<label htmlFor="email-address">Email address:</label>
+						<input
+							id="email-address"
+							name="email"
+							type="email"
+							required
+							placeholder="Email address"
+							onChange={(e) => setEmail(e.target.value)}
+							style={{ marginLeft: "auto" }}
+						/>
 					</div>
-				</div>
-			</section>
-		</main>
+
+					<div style={{ display: "flex", marginBottom: "10px" }}>
+						<label htmlFor="password">Password</label>
+						<input
+							id="password"
+							name="password"
+							type="password"
+							required
+							placeholder="Password"
+							onChange={(e) => setPassword(e.target.value)}
+							style={{ marginLeft: "auto" }}
+						/>
+					</div>
+
+					<div style={{ display: "flex", marginBottom: "10px" }}>
+						<button
+							onClick={onSubmit}
+							style={{ marginLeft: "auto", marginRight: "auto" }}
+						>
+							Sign Up
+						</button>
+					</div>
+				</form>
+
+				<p className="text-sm text-center">
+					Already have an account? <NavLink to="/login">Sign in</NavLink>
+				</p>
+			</div>
+		</>
 	);
 };
 

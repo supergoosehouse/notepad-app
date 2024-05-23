@@ -3,7 +3,7 @@ import AddNoteButton from "./AddNoteButton";
 import Note from "./Note";
 import { NoteProps } from "./Note";
 import { realtimeDB } from "../services/firebase";
-import { push } from "firebase/database";
+import { push, ThenableReference } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 import {
@@ -12,20 +12,26 @@ import {
 	ref,
 	DataSnapshot,
 } from "firebase/database";
+import { useNavigate } from "react-router-dom";
 
 const NoteList: React.FC = () => {
 	// Initalisation of the notes list with AddNoteButton
 	const [notes, setNotes] = useState<NoteProps[]>([
 		{ id: "null", date: "", title: "", content: "", prop: "button" },
 	]);
-
+	const navigate = useNavigate();
 	// Note in the database has the following attributes: title, content, date.
 	// Meanwhile, the Note component has the following attributes:
 	// title, content, date, props, and id.
 	// The id is used for deleting elements from the database and is equal to the key of the note in the database.
 	// Props include functions for setting up the app's "add note" button.
 	const addNote = (title: string, content: string, date: string) => {
-		push(userNotesRef, { title, content, date });
+		const newNoteRef: ThenableReference = push(userNotesRef, {
+			title,
+			content,
+			date,
+		});
+		navigate("/editor/" + newNoteRef.key);
 	};
 	const auth = getAuth();
 	const uid = auth.currentUser?.uid;
@@ -43,7 +49,7 @@ const NoteList: React.FC = () => {
 				date: element.date || "",
 				prop: "note",
 			}));
-			updatedNotes.reverse();
+			//updatedNotes.reverse();
 
 			setNotes([notes[0], ...updatedNotes]);
 		};
